@@ -1,0 +1,25 @@
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here-
+      docker run -v $(pwd):/app/volume  -e pathToTemplateFile=templates -e pathToTagFile=tagging/tags.json nemcrunchers/azure-arm-tagger
+      cat output/cosmosdb.json
+    workingDirectory: 'deployment/ARM/'
+    failOnStderr: true
+- task: AzureResourceGroupDeployment@2
+  inputs:
+    azureSubscription: '{{subscription}}'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: '{{rg}}'
+    location: 'Central US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'volume/output/template.json'
+    csmParametersFile: 'volume/output/template.json'
+    overrideParameters: 'blah'
+    deploymentMode: 'Incremental'
