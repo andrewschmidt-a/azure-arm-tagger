@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "AzureARMTagger": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "pathToTagFile": "tags.json",
+        "pathToTemplateFile": "dir",
+        "pathToFiles": "./"
+      }
+    }
+  }
+}

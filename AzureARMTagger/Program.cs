@@ -1,8 +1,13 @@
 ﻿
+using System.Text.RegularExpressions;
+using System.Linq;
 using System;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace AzureARMTagger
 {
@@ -10,18 +15,48 @@ namespace AzureARMTagger
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
 
-            string DirPath = Environment.GetEnvironmentVariable("pathToFiles")??"./";
-            
 
-            // Read the template and parameter file contents
-            JObject templateFileContents = GetJsonFileContents(DirPath+Environment.GetEnvironmentVariable("pathToTemplateFile"));
-            
+            if(args.Length < 2 || args[0]== null || args[1] == null){
+                throw new Exception("Must Involke with 2 arguments (pathToTemplateFile, pathToTagFile) ");
+            }
+
+            string pathToTemplateFile = args[0];
+            string pathToTagFile = args[1];
+
+            string DirPath = "./volume/";
+
             // Read the tags
-            JObject tagFileContents = GetJsonFileContents(DirPath+Environment.GetEnvironmentVariable("pathToTagFile"));
-            // Add Tags
-            templateFileContents = AddTagsToTemplate(templateFileContents, tagFileContents);
+            JObject tagFileContents = GetJsonFileContents(Path.Combine(DirPath,pathToTagFile));
+
+            pathToTemplateFile = Path.Combine(DirPath,pathToTemplateFile);
+            FileAttributes attr = File.GetAttributes(pathToTemplateFile);
+            List<string> pathsOfFiles;
+
+            if((attr & FileAttributes.Directory) == FileAttributes.Directory){
+                Regex rx = new Regex(@".*\.json");
+                pathsOfFiles = Directory.GetFiles(pathToTemplateFile).Where(t=> rx.Match(t).Success).ToList();
+            }else{
+                pathsOfFiles = new List<string>(){pathToTemplateFile};
+            }
+
+            foreach(string path in pathsOfFiles){
+                // Read the template and parameter file contents
+                JObject templateFileContents = GetJsonFileContents(path);
+                
+                // Add Tags
+                templateFileContents = AddTagsToTemplate(templateFileContents, tagFileContents);
+
+                // write JSON directly to a file
+                Directory.CreateDirectory(Path.Combine(DirPath, "output")); // Create in case it doesn't exist
+                using (StreamWriter file = File.CreateText(Path.Combine(DirPath, "output",Path.GetFileName(path))))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    writer.Formatting = Formatting.Indented;
+                    templateFileContents.WriteTo(writer);
+                }
+            }
+            
         }
 
         /// <summary>
@@ -56,5 +91,5 @@ namespace AzureARMTagger
             }
             return template;
         }
-}
     }
+}
