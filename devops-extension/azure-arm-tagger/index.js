@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const tl = require("azure-pipelines-task-lib/task");
-var tagger = require("../AzureARMTagger/tagger.js");
+var tagger = require("../../AzureARMTagger/tagger.js");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
