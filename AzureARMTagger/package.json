@@ -1,0 +1,28 @@
+{
+  "name": "azure-arm-tagger",
+  "version": "1.0.0",
+  "description": "Tags Azure ARM Templates",
+  "main": "tagger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewschmidt-a/azure-arm-tagger.git"
+  },
+  "keywords": [
+    "arm",
+    "azure",
+    "tag",
+    "resource"
+  ],
+  "author": "Andrew Schmidt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrewschmidt-a/azure-arm-tagger/issues"
+  },
+  "homepage": "https://github.com/andrewschmidt-a/azure-arm-tagger#readme",
+  "dependencies": {
+    "glob": "^7.1.4"
+  }
+}

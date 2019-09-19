@@ -1,0 +1,46 @@
+{
+    "id": "8ec39969-2219-485c-90fe-250214b44baa",
+    "name": "Azure ARM Tagger",
+    "friendlyName": "{{taskfriendlyname}}",
+    "description": "{{taskdescription}}",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Andrew Schmidt",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 0
+    },
+    "instanceNameFormat": "Azure ARM Tagger",
+    "inputs": [
+        {
+            "name": "workingDirectory",
+            "type": "string",
+            "label": "Working directory",
+            "defaultValue": "$(System.DefaultWorkingDirectory)",
+            "required": false,
+            "helpMarkDown": "The Directory that the tagger will run from."
+        },
+        {
+            "name": "pathToTemplateFile",
+            "type": "string",
+            "label": "Path to template file",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Either the file to tag or a directory to scan for json files to tag."
+        },
+        {
+            "name": "pathToTagFile",
+            "type": "string",
+            "label": "Path to template file",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "The json file containing key value pairs for the tags to be applied."
+        }
+    ],
+    "execution": {
+        "Node10": {
+            "target": "index.js"
+        }
+    }
+}
