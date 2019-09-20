@@ -5,11 +5,10 @@ var fs = require('fs');
 function addTagsToFile(file, tags){
     var template = JSON.parse(fs.readFileSync(file));
     template['resources'].forEach(element => {
-        if(element['tags'] == undefined){
-            element['tags'] = {}
-        }
-        for (const [key, value] of Object.entries(tags)) {
-            element['tags'][key] = value;
+        if(element['tags'] != undefined){
+            for (const [key, value] of Object.entries(tags)) {
+                element['tags'][key] = value;
+            }
         }
     });
     fs.writeFileSync(file, JSON.stringify(template, null, 2));
