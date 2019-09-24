@@ -10,7 +10,7 @@ dotnet run Azure ARMTaggerC#/AzureARMTagger.csproj "FILE_TEMPLATE_PATH" "FILE_TA
 ```
 or...
 ```
-node ARMTagger/tagger.js "FILE_TEMPLATE_PATH" "FILE_TAGS_PATH"
+node -e 'require("./tagger.js")(process.env.pathToTemplateFile, "FILE_TEMPLATE_PATH", "FILE_TAGS_PATH")'
 ```
 or use docker...
 ```
