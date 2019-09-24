@@ -5,8 +5,12 @@ This Utility will help to apply Tags (from json file) into an ARM Template (json
 
 to get started run 
 ```
-dotnet build AzureARMTagger/AzureARMTagger.csproj
-dotnet run Azure ARMTagger/AzureARMTagger.csproj "FILE_TEMPLATE_PATH" "FILE_TAGS_PATH"
+dotnet build AzureARMTaggerC#/AzureARMTagger.csproj
+dotnet run Azure ARMTaggerC#/AzureARMTagger.csproj "FILE_TEMPLATE_PATH" "FILE_TAGS_PATH"
+```
+or...
+```
+node ARMTagger/tagger.js "FILE_TEMPLATE_PATH" "FILE_TAGS_PATH"
 ```
 or use docker...
 ```
