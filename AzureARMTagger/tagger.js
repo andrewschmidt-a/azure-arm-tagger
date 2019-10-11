@@ -23,6 +23,7 @@ module.exports = function main(pathToTemplateFile, pathToTagFile, workingDirecto
     if(fs.lstatSync(pathToTemplateFile).isDirectory()){
         glob("*.json", {cwd:pathToTemplateFile}, function (er, files) {
             files.forEach(file => {
+                console.log("Processing... "+file)
                 addTagsToFile(path.join(pathToTemplateFile, file), tags)
             });
         })
